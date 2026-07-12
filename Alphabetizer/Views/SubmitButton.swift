@@ -1,9 +1,16 @@
 import SwiftUI
 
 struct SubmitButton: View {
+    
+    // MARK: - Properties
+    
+    @Environment(Alphabetizer.self) private var alphabetizer
+    
+    // MARK: - Body
+    
     var body: some View {
         Button {
-            // TODO: Submit
+            alphabetizer.submit()
         } label: {
             Image(systemName: "play.circle")
                 .font(.system(size: 60))
@@ -17,6 +24,9 @@ struct SubmitButton: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     SubmitButton()
+        .environment(Alphabetizer())
 }

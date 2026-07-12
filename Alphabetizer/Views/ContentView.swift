@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // MARK: - Body
+    
     var body: some View {
         VStack(spacing: 20) {
             ScoreView()
@@ -14,6 +17,9 @@ struct ContentView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     ContentView()
+        .environment(Alphabetizer())
 }

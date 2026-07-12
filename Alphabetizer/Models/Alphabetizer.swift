@@ -9,16 +9,24 @@ import Foundation
 
 @Observable
 class Alphabetizer {
+    
+    // MARK: - Properties
+    
     private let tileCount = 3
     private var vocab: Vocabulary
     
     var tiles = [Tile]()
     var score = 0
+    var message: Message = .instructions
+    
+    // MARK: - Init
     
     init(vocab: Vocabulary = .oceanAnimals) {
         self.vocab = vocab
         startNewGame()
     }
+    
+    // MARK: - Public methods
     
     /// Checks if tiles are in alphabetical order
     func submit() {
@@ -26,7 +34,7 @@ class Alphabetizer {
         score += 1
     }
     
-    // MARK: private implementation
+    // MARK: - Private methods
     
     /// Updates `tiles` with a new set of unalphabetized words
     private func startNewGame() {
