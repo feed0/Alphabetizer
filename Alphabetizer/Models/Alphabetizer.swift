@@ -19,6 +19,11 @@ class Alphabetizer {
     var score = 0
     var message: Message = .instructions
     
+    // MARK: Computed properties
+    
+    // Alternates true and false
+    private var isAlphabetized = false
+    
     // MARK: - Init
     
     init(vocab: Vocabulary = .oceanAnimals) {
@@ -30,8 +35,44 @@ class Alphabetizer {
     
     /// Checks if tiles are in alphabetical order
     func submit() {
-        // TODO: Implement submit
-        score += 1
+        // Check if the tiles are alphabetized
+        
+        // TODO: Compare alphabetical order to position
+        isAlphabetized.toggle()
+        
+        // If alphabetized, increment the score
+        if isAlphabetized {
+            score += 1
+        }
+        
+        // Update the message to win or lose
+        message = isAlphabetized ? .youWin : .tryAgain
+        
+        // Flip over correct tiles
+        for tile in tiles {
+            // TODO: Check if this tile is in the correct position
+            let tileIsAlphabetized = isAlphabetized
+            tile.flipped = tileIsAlphabetized
+        }
+        
+        Task { @MainActor in
+            // Delay 2 seconds
+            try await Task.sleep(for: .seconds(2))
+            
+            // If alphabetized, generate new tiles
+            if isAlphabetized {
+                tiles.removeAll()
+                startNewGame()
+            }
+            
+            // Flip tiles back to words
+            for tile in tiles {
+                tile.flipped = false
+            }
+            
+            // Display instructions
+            message = .instructions
+        }
     }
     
     // MARK: - Private methods
