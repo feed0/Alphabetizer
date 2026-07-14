@@ -31,6 +31,16 @@ struct WordCanvas: View {
         .onAppear {
             setInitialTilePositions()
         }
+        .onChange(of: alphabetizer.message) { oldValue, newValue in
+            switch (oldValue, newValue) {
+                case (.youWin, .instructions):
+                    withAnimation {
+                        setInitialTilePositions()
+                    }
+                default:
+                    break
+            }
+        }
     }
 }
 
@@ -50,7 +60,7 @@ extension WordCanvas {
         tiles.enumerated().forEach { index, tile in
             let midpoint = Double(tiles.count - 1) / 2.0
             let position = Double(index) - midpoint
-
+            
             tiles[index].position.x = (Tile.size + Tile.spacing) * position
             tiles[index].position.y = Tile.halfSize
         }
@@ -62,7 +72,7 @@ extension Tile {
     static let size = 200.0
     static let halfSize = 100.0
     static let spacing = 50.0
-
+    
     // Drag from the center of the tile instead of the default top left
     var centeredOffset: CGSize {
         CGSize(width: position.x - Tile.halfSize, height: position.y - Tile.halfSize)

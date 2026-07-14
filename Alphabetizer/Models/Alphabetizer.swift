@@ -2,7 +2,7 @@
 //  Alphabetizer.swift
 //  Alphabetizer
 //
-//  Created by Felipe Eduardo Campelo Ferreira Osorio on 10/07/26.
+//  Created by feed0 on 10/07/26.
 //
 
 import Foundation
@@ -61,7 +61,6 @@ class Alphabetizer {
             
             // If alphabetized, generate new tiles
             if isAlphabetized {
-                tiles.removeAll()
                 startNewGame()
             }
             
@@ -80,8 +79,15 @@ class Alphabetizer {
     /// Updates `tiles` with a new set of unalphabetized words
     private func startNewGame() {
         let newWords = vocab.selectRandomWords(count: tileCount)
-        for word in newWords {
-            tiles.append(Tile(word: word))
+        if tiles.isEmpty {
+            for word in newWords {
+                tiles.append(Tile(word: word))
+            }
+        } else {
+            // Assign new words to existing tiles
+            for (tile, word) in zip(tiles, newWords) {
+                tile.word = word
+            }
         }
     }
 }
