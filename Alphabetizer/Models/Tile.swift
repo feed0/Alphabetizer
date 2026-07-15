@@ -17,3 +17,11 @@ class Tile: Identifiable {
         Vocabulary.icons[word] ?? "🤷"
     }
 }
+
+// MARK: Protocol conformance extensions
+
+extension Tile: Equatable {
+    static func == (lhs: Tile, rhs: Tile) -> Bool {
+        lhs.id == rhs.id
+    }
+}
