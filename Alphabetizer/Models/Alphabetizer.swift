@@ -18,7 +18,15 @@ class Alphabetizer {
     var tiles = [Tile]()
     var score = 0
     var message: Message = .instructions
-    
+    var totalAttempts = 0
+    var wins = 0
+
+    /// Calculates the win percentage (0-100)
+    var winPercentage: Double {
+        guard totalAttempts > 0 else { return 0 }
+        return Double(wins) / Double(totalAttempts) * 100.0
+    }
+
     // MARK: - Init
     
     init(vocab: Vocabulary = .landAnimals) {
@@ -30,6 +38,9 @@ class Alphabetizer {
     
     /// Checks if tiles are in alphabetical order
     func submit() {
+        // Track the attempt
+        totalAttempts += 1
+
         // Check if the tiles are alphabetized
         let userSortedTiles = tiles.sorted {
             $0.position.x < $1.position.x
@@ -44,6 +55,7 @@ class Alphabetizer {
         // If alphabetized, increment the score
         if isAlphabetized {
             score += 1
+            wins += 1
         }
         
         // Update the message to win or lose
