@@ -51,3 +51,7 @@ extension Vocabulary {
         "Whale",
     ])
 }
+
+extension Vocabulary: Equatable {
+    
+}

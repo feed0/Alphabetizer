@@ -84,6 +84,8 @@ class Alphabetizer {
             // Display instructions
             message = .instructions
         }
+        
+        switchVocabulary()
     }
     
     // MARK: - Private methods
@@ -100,6 +102,17 @@ class Alphabetizer {
             for (tile, word) in zip(tiles, newWords) {
                 tile.word = word
             }
+        }
+    }
+    
+    private func switchVocabulary() {
+        switch vocab {
+            case .landAnimals:
+                vocab = .oceanAnimals
+            case .oceanAnimals:
+                vocab = .landAnimals
+            default:
+                vocab = .landAnimals
         }
     }
 }
